@@ -15,7 +15,7 @@ class CategoriesRow extends StatelessWidget {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
-              color: AppColors.primary,
+              color: AppColors.darkBlue,
             ),
           ),
           Spacer(),
