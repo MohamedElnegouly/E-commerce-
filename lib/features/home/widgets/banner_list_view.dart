@@ -8,7 +8,7 @@ class BannerListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 180,
       child: cs.CarouselSlider(
         items: [
           CustomBanner(

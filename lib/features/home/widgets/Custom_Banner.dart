@@ -100,7 +100,7 @@ class CustomBanner extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 40,
+            bottom: 17,
             left: direction == 'right' ? null : 20,
             right: direction == 'right' ? 30 : null,
             child: ElevatedButton(
