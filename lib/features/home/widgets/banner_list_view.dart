@@ -1,3 +1,5 @@
+import 'package:carousel_slider/carousel_slider.dart' as cs;
+import 'package:e_commerce/features/home/widgets/Custom_Banner.dart';
 import 'package:flutter/material.dart';
 
 class BannerListView extends StatelessWidget {
@@ -6,20 +8,33 @@ class BannerListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200, // ارتفاع العنصر
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal, // ✅ يخليها أفقية
-        itemCount: 3,
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.only(right: 16), // مسافة بين العناصر
-            width: 385, // عرض كل عنصر
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-            clipBehavior: Clip.antiAlias,
-            child: Image.asset('assets/images/Group 11.png', fit: BoxFit.cover),
-          );
-        },
+      height: 200,
+      child: cs.CarouselSlider(
+        items: [
+          CustomBanner(
+            imagePath: 'assets/images/carousel_slider1.png',
+            title: 'For all Headphones \n& AirPods',
+            discount: '25%',
+          ),
+          CustomBanner(
+            imagePath: 'assets/images/carousel_slider2.png',
+            title: 'For all Makeup\n& Skincare',
+            discount: '30%',
+            direction: 'right',
+          ),
+          CustomBanner(
+            imagePath: 'assets/images/carousel_slider3.png',
+            title: 'For Laptops\n& Mobiles',
+            discount: '25%',
+          ),
+        ],
+        options: cs.CarouselOptions(
+          height: 200,
+          autoPlay: false,
+          enlargeCenterPage: true,
+          viewportFraction: 0.9,
+          autoPlayInterval: Duration(seconds: 3),
+        ),
       ),
     );
   }
