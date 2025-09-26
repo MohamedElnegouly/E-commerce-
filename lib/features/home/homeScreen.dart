@@ -1,4 +1,3 @@
-import 'package:e_commerce/core/widgets/custom_app_bar.dart';
 import 'package:e_commerce/features/home/widgets/home_screen_body.dart';
 import 'package:flutter/material.dart';
 
@@ -8,9 +7,8 @@ class Homescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false, title: customappbar()),
+      //appBar: AppBar(automaticallyImplyLeading: false, title: customappbar()),
       body: HomeScreenBody(),
     );
   }
 }
-

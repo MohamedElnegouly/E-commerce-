@@ -1,17 +1,17 @@
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class HomeAppliance extends StatelessWidget {
-  const HomeAppliance({super.key});
-
+class Title extends StatelessWidget {
+  const Title({super.key, required this.title});
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [
           Text(
-            'Home Appliance',
+            title,
             style: TextStyle(
               color: AppColors.darkBlue,
               fontSize: 18,
