@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class AppRouters {
   AppRouters();
-  
+
   Route onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutersStrings.splash:
@@ -16,10 +16,12 @@ class AppRouters {
         return MaterialPageRoute(builder: (context) => const LoginScreen());
       case AppRoutersStrings.register:
         return MaterialPageRoute(builder: (context) => const RegisterScreen());
-        case AppRoutersStrings.home:
+      case AppRoutersStrings.home:
         return MaterialPageRoute(builder: (context) => const Homescreen());
       default:
-        return MaterialPageRoute(builder: (context) => const Text('Error in routing'));
+        return MaterialPageRoute(
+          builder: (context) => const Text('Error in routing'),
+        );
     }
   }
 }
