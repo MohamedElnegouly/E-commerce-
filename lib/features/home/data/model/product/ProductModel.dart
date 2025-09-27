@@ -3,21 +3,21 @@ import 'category.dart';
 import 'subcategory.dart';
 
 class ProductModel{
-  int? sold;
+  dynamic sold;
   List<String>? images;
   List<Subcategory>? subcategory;
-  int? ratingsQuantity;
+  dynamic ratingsQuantity;
   String? mongoId; // عشان نفرق بين _id و id
   String? id; // ده من ال JSON باسم "id"
   String? title;
   String? slug;
   String? description;
-  int? quantity;
-  int? price;
+  dynamic quantity;
+  dynamic price;
   String? imageCover;
   Category? category;
   Brand? brand;
-  double? ratingsAverage;
+  dynamic ratingsAverage;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -42,7 +42,7 @@ class ProductModel{
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        sold: json['sold'] as int?,
+        sold: json['sold'] ?? '',
         images: (json['images'] as List<dynamic>?)
             ?.map((e) => e as String)
             .toList(),
@@ -64,7 +64,7 @@ class ProductModel{
         brand: json['brand'] == null
             ? null
             : Brand.fromJson(json['brand'] as Map<String, dynamic>),
-        ratingsAverage: (json['ratingsAverage'] as num?)?.toDouble(),
+        ratingsAverage: (json['ratingsAverage'] ?? ''),
         createdAt: json['createdAt'] == null
             ? null
             : DateTime.parse(json['createdAt'] as String),

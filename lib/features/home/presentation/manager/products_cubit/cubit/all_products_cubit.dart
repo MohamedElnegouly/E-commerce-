@@ -8,7 +8,7 @@ part 'all_products_state.dart';
 class AllProductsCubit extends Cubit<AllProductsState> {
   AllProductsCubit(this.homeRepo) : super(AllProductsInitial());
  final HomeRepo homeRepo;
-  Future<void> fetchfeatureBooks() async {
+  Future<void> getProducts() async {
     emit(AllProductsLoading());
     var result = await homeRepo.getAllProduct();
     result.fold(

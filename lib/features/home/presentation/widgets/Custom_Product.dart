@@ -1,9 +1,10 @@
 import 'package:e_commerce/core/utils/app_colors.dart';
+import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
 import 'package:flutter/material.dart';
 
 class CustomProduct extends StatelessWidget {
-  const CustomProduct({super.key});
-
+  const CustomProduct({super.key, required this.product});
+ final ProductModel product;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -25,8 +26,8 @@ class CustomProduct extends StatelessWidget {
                   topLeft: Radius.circular(12),
                   topRight: Radius.circular(12),
                 ),
-                child: Image.asset(
-                  "assets/images/Frame 65.png",
+                child: Image.network(
+                  product.imageCover!,
                   height: size.height * 0.18,
                   width: double.infinity,
                   fit: BoxFit.fitWidth,
@@ -53,9 +54,9 @@ class CustomProduct extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children:  [
                 Text(
-                  "Nike Air Jordon",
+                  product.brand!.name!,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -65,7 +66,7 @@ class CustomProduct extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Nike shoes flexible for wo gfhdfghdfg",
+                  product.title!,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -77,7 +78,7 @@ class CustomProduct extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "EGP 1,200",
+                      product.price.toString(),
                       style: TextStyle(
                         color: AppColors.primary,
                         fontSize: 14, // ثابت

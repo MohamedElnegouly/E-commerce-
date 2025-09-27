@@ -1,8 +1,10 @@
 import 'package:e_commerce/core/routers/app_routers.dart';
 import 'package:e_commerce/core/utils/app_routers_strings.dart';
+import 'package:e_commerce/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+   setupServiceLocator();
   runApp(const MyApp());
 }
 
