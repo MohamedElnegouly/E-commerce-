@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart' as cs;
-import 'package:e_commerce/features/home/widgets/Custom_Banner.dart';
+import 'package:e_commerce/features/home/presentation/widgets/Custom_Banner.dart';
 import 'package:flutter/material.dart';
 
 class BannerListView extends StatelessWidget {

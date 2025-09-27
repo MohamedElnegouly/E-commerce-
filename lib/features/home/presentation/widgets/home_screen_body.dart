@@ -1,11 +1,11 @@
 import 'package:e_commerce/core/widgets/custom_app_bar.dart';
 import 'package:e_commerce/core/widgets/custom_search.dart';
-import 'package:e_commerce/features/home/widgets/Categories_row.dart';
-import 'package:e_commerce/features/home/widgets/banner_list_view.dart';
-import 'package:e_commerce/features/home/widgets/categories_list_view.dart';
-import 'package:e_commerce/features/home/widgets/Title.dart';
-import 'package:e_commerce/features/home/widgets/image.dart';
-import 'package:e_commerce/features/home/widgets/product_list_view.dart';
+import 'package:e_commerce/features/home/presentation/widgets/Categories_row.dart';
+import 'package:e_commerce/features/home/presentation/widgets/banner_list_view.dart';
+import 'package:e_commerce/features/home/presentation/widgets/categories_list_view.dart';
+import 'package:e_commerce/features/home/presentation/widgets/Title.dart';
+import 'package:e_commerce/features/home/presentation/widgets/image.dart';
+import 'package:e_commerce/features/home/presentation/widgets/product_list_view.dart';
 import 'package:flutter/material.dart' hide Title;
 
 class HomeScreenBody extends StatelessWidget {

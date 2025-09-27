@@ -1,4 +1,4 @@
-import 'package:e_commerce/features/home/widgets/category_element.dart';
+import 'package:e_commerce/features/home/presentation/widgets/category_element.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesListView extends StatelessWidget {

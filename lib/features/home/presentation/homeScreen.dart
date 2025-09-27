@@ -1,4 +1,4 @@
-import 'package:e_commerce/features/home/widgets/home_screen_body.dart';
+import 'package:e_commerce/features/home/presentation/widgets/home_screen_body.dart';
 import 'package:flutter/material.dart';
 
 class Homescreen extends StatelessWidget {

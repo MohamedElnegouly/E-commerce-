@@ -1,5 +1,5 @@
 import 'package:e_commerce/core/utils/app_routers_strings.dart';
-import 'package:e_commerce/features/home/homeScreen.dart';
+import 'package:e_commerce/features/home/presentation/homeScreen.dart';
 import 'package:e_commerce/features/login/screen/login_screen.dart';
 import 'package:e_commerce/features/register/screen/register_screen.dart';
 import 'package:e_commerce/features/splash/screen/splash_screen.dart';
