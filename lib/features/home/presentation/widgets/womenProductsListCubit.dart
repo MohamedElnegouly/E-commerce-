@@ -1,25 +1,25 @@
 import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
-import 'package:e_commerce/features/home/presentation/manager/men_cubit/cubit/men_product_cubit.dart';
+import 'package:e_commerce/features/home/presentation/manager/products_cubit/cubit/all_products_cubit.dart';
 import 'package:e_commerce/features/home/presentation/widgets/product_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class Menproductslistcubit extends StatelessWidget {
-  const Menproductslistcubit({super.key});
+class Womenproductslistcubit extends StatelessWidget {
+  const Womenproductslistcubit({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MenProductCubit,MenProductState>(
+    return BlocBuilder<AllProductsCubit, AllProductsState>(
       builder: (context, state) {
-        bool isLoading = state is MenProductLoading;
+        bool isLoading = state is AllProductsLoading;
         List<ProductModel> products = [];
 
-        if (state is MenProductSuccess) {
-          products = state.menproducts;
-        } else if (state is MenProductfailure) {
+        if (state is AllProductsSuccess) {
+          products = state.products;
+        } else if (state is AllProductsfailure) {
           return Center(child: Text(state.errorMessage));
-        } else if (state is MenProductLoading) {
+        } else if (state is AllProductsLoading) {
           products = List.generate(
             6,
             (index) => ProductModel(), // منتجات فاضية للـ Skeleton

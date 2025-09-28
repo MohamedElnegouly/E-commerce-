@@ -30,7 +30,7 @@ class BannerListView extends StatelessWidget {
         ],
         options: cs.CarouselOptions(
           height: 200,
-          autoPlay: false,
+          autoPlay: true,
           enlargeCenterPage: true,
           viewportFraction: 0.9,
           autoPlayInterval: Duration(seconds: 3),
