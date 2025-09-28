@@ -4,13 +4,14 @@ import 'package:e_commerce/features/home/presentation/widgets/banner_list_view.d
 import 'package:e_commerce/features/home/presentation/widgets/categories_list_view.dart';
 import 'package:e_commerce/features/home/presentation/widgets/Title.dart';
 import 'package:e_commerce/features/home/presentation/widgets/image.dart';
+import 'package:e_commerce/features/home/presentation/widgets/menProductsListCubit.dart';
 import 'package:e_commerce/features/home/presentation/widgets/product_list_view.dart';
 import 'package:e_commerce/core/widgets/custom_app_bar.dart';
 import 'package:e_commerce/core/widgets/custom_search.dart';
 import 'package:flutter/material.dart' hide Title;
+
 class HomeBody extends StatelessWidget {
-  const HomeBody({super.key, required this.products});
-  final List<ProductModel> products;
+  const HomeBody({super.key});
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -22,13 +23,9 @@ class HomeBody extends StatelessWidget {
         CategoriesRow(),
         CategoriesListView(),
         CategoriesListView(),
-        Title(title: 'Home Applicance'),
-        ProductListView(products:products,),
+        Title(title: 'Women Fashion'),
+        Menproductslistcubit(),
         CenterImage(),
-        // Title(title: 'New Arrival'),
-        // ProductListView(products:products,),
-        // Title(title: 'Smart Watch'),
-        // ProductListView(products:products,),
       ],
     );
   }
