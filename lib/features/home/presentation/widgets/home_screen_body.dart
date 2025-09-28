@@ -15,20 +15,21 @@ class HomeScreenBody extends StatelessWidget {
       builder: (context, state) {
         bool isLoading = state is AllProductsLoading;
         List<ProductModel> products = [];
+
         if (state is AllProductsSuccess) {
-          return HomeBody(products: state.products);
+          products = state.products;
         } else if (state is AllProductsfailure) {
           return Center(child: Text(state.errorMessage));
         } else if (state is AllProductsLoading) {
           products = List.generate(
             6,
-            (index) => ProductModel(), // موديل فاضي عشان الـ Skeleton
+            (index) => ProductModel(), // منتجات فاضية للـ Skeleton
           );
         }
 
         return Skeletonizer(
-          enabled: isLoading, // لو loading يشتغل skeleton
-          child: HomeBody(products: products), // الصفحة كلها (widgets + list)
+          enabled: isLoading, // بيشتغل وقت الـ loading بس
+          child: HomeBody(products: products), // نفس الـ UI دايمًا
         );
       },
     );

@@ -14,7 +14,7 @@ class ProductListView extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: 7,
+        itemCount: products.length,
         itemBuilder: (context, index) {
           return SizedBox(
             width: MediaQuery.of(context).size.width * 0.48,
