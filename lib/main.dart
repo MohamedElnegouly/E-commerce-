@@ -4,7 +4,7 @@ import 'package:e_commerce/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-   setupServiceLocator();
+  setupServiceLocator();
   runApp(const MyApp());
 }
 

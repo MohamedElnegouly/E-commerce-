@@ -10,7 +10,7 @@ class Elecproductlistcubit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ElectronicsProductCubit,ElectronicsProductState>(
+    return BlocBuilder<ElectronicsProductCubit, ElectronicsProductState>(
       builder: (context, state) {
         bool isLoading = state is ElectronicsProductLoading;
         List<ProductModel> products = [];

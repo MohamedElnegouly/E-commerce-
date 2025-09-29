@@ -10,7 +10,7 @@ class Menproductslistcubit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MenProductCubit,MenProductState>(
+    return BlocBuilder<MenProductCubit, MenProductState>(
       builder: (context, state) {
         bool isLoading = state is MenProductLoading;
         List<ProductModel> products = [];

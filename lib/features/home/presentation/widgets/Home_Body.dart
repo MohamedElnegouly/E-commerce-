@@ -22,14 +22,13 @@ class HomeBody extends StatelessWidget {
         BannerListView(),
         CategoriesRow(),
         CategoriesListView(),
-        CategoriesListView(),
         Title(title: 'Women Fashion'),
         Womenproductslistcubit(),
         CenterImage(),
         Title(title: 'Men\'s Clothing'),
         Menproductslistcubit(),
-         Title(title: 'Electronics'),
-         Elecproductlistcubit(),
+        Title(title: 'Electronics'),
+        Elecproductlistcubit(),
       ],
     );
   }

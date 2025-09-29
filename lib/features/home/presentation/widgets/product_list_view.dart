@@ -18,7 +18,7 @@ class ProductListView extends StatelessWidget {
         itemBuilder: (context, index) {
           return SizedBox(
             width: MediaQuery.of(context).size.width * 0.48,
-            child: CustomProduct(product:  products[index],),
+            child: CustomProduct(product: products[index]),
           );
         },
         separatorBuilder: (context, index) => const SizedBox(width: 8),

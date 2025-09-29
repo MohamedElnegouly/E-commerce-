@@ -13,7 +13,7 @@ class Homescreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MultiBlocProvider(
+    return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) =>
@@ -28,9 +28,7 @@ class Homescreen extends StatelessWidget {
               ElectronicsProductCubit(getIt.get<HomeRepo>())..getProducts(),
         ),
       ],
-      child: Scaffold(
-        body: HomeBody(),
-      ),
+      child: Scaffold(body: HomeBody()),
     );
   }
 }
