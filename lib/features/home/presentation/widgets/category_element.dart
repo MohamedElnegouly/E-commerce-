@@ -1,9 +1,10 @@
 import 'package:e_commerce/core/utils/app_colors.dart';
+import 'package:e_commerce/features/home/data/model/category/categoryModel.dart';
 import 'package:flutter/material.dart';
 
 class CategoryElement extends StatelessWidget {
-  const CategoryElement({super.key});
-
+  const CategoryElement({super.key, required this.category});
+  final CategoryModel category;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -12,21 +13,16 @@ class CategoryElement extends StatelessWidget {
         Container(
           width: 100,
           height: 100,
-          decoration: const ShapeDecoration(
-            color: Color(0xFFF3F5F7),
-            shape: OvalBorder(),
-          ),
-          child: const Center(
-            child: CircleAvatar(
-              radius: 100,
-              backgroundImage: AssetImage('assets/images/Ellipse 16.png'),
-              backgroundColor: Colors.transparent,
-            ),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+          child: CircleAvatar(
+            radius: 50,
+            backgroundColor: Colors.transparent,
+            backgroundImage: NetworkImage(category.image!),
           ),
         ),
         //const SizedBox(height: 4),
-        const Text(
-          'Laptops',
+        Text(
+          category.name!,
           style: TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w600,

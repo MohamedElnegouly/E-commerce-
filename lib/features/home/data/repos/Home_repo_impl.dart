@@ -38,11 +38,11 @@ class HomeRepoImpl implements HomeRepo {
   Future<Either<Failure, List<CategoryModel>>> getCategory() async {
     try{
       var data = await apiService.get(endPoint:'categories/');
-      List<CategoryModel> products = [];
+      List<CategoryModel> category = [];
       for (var item in data['data']) {
-        products.add(CategoryModel.fromJson(item));
+        category.add(CategoryModel.fromJson(item));
       }
-      return right(products);
+      return right(category);
     } catch (e) {
       if (e is DioException) {
         return left(ServerError.fromDioError(e));
