@@ -16,8 +16,8 @@ class CategoriesListView extends StatelessWidget {
           return Text("Error: ${state.errorMessage}");
         }
         if (state is CategorySuccess) {
-          final allCategories = state.categories;
-          final visibleCategories = state.showAll
+          final allCategories = state.categories; // get all categories
+          final visibleCategories = state.showAll// depends on showAll store the list 
               ? allCategories
               : allCategories.take(6).toList(); // صفين بس
 
