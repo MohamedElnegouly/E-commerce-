@@ -13,14 +13,20 @@ class CategoryElement extends StatelessWidget {
         Container(
           width: 100,
           height: 100,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-          child: CircleAvatar(
-            radius: 50,
-            backgroundColor: Colors.transparent,
-            backgroundImage: NetworkImage(category.image!),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
+          clipBehavior: Clip.hardEdge, //borderRadius يخلي الصورة تتقص جوه الـ 
+          child: Image.network(
+            category.image!,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Image.asset(
+                "assets/images/Ellipse 14.png",
+                fit: BoxFit.cover,
+              );
+            },
           ),
         ),
-        //const SizedBox(height: 4),
+        const SizedBox(height: 4),
         Text(
           category.name!,
           style: TextStyle(

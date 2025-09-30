@@ -1,35 +1,89 @@
-import 'package:e_commerce/features/home/presentation/widgets/Categories_row.dart';
-import 'package:e_commerce/features/home/presentation/widgets/banner_list_view.dart';
-import 'package:e_commerce/features/home/presentation/widgets/categories_list_view.dart';
-import 'package:e_commerce/features/home/presentation/widgets/Title.dart';
-import 'package:e_commerce/features/home/presentation/widgets/elecProductListCubit.dart';
-import 'package:e_commerce/features/home/presentation/widgets/image.dart';
-import 'package:e_commerce/features/home/presentation/widgets/menProductsListCubit.dart';
-import 'package:e_commerce/features/home/presentation/widgets/womenProductsListCubit.dart';
+import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:e_commerce/core/widgets/custom_app_bar.dart';
 import 'package:e_commerce/core/widgets/custom_search.dart';
+import 'package:e_commerce/features/home/presentation/manager/products_cubit/cubit/all_products_cubit.dart';
+import 'package:e_commerce/features/home/presentation/widgets/Custom_Product.dart';
+import 'package:e_commerce/features/home/presentation/widgets/lower_Widgets_Home.dart';
 import 'package:flutter/material.dart' hide Title;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
+
+  @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(() {
+      context.read<AllProductsCubit>().filterProducts(_searchController.text);
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        CustomAppBar(),
-        CustomSearch(),
-        SizedBox(height: 16),
-        BannerListView(),
-        CategoriesRow(),
-        CategoriesListView(),
-        Title(title: 'Women Fashion'),
-        Womenproductslistcubit(),
-        CenterImage(),
-        Title(title: 'Men\'s Clothing'),
-        Menproductslistcubit(),
-        Title(title: 'Electronics'),
-        Elecproductlistcubit(),
-      ],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: ListView(
+        children: [
+          const CustomAppBar(),
+          CustomSearch(
+            controller: _searchController,
+            onClear: () {
+              _searchController.clear();
+              context.read<AllProductsCubit>().filterProducts('');
+            },
+          ),
+          const SizedBox(height: 16),
+          BlocBuilder<AllProductsCubit, AllProductsState>(
+            builder: (context, state) {
+              if (state is AllProductsLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is AllProductsfailure) {
+                return Center(child: Text(state.errorMessage));
+              } else if (state is AllProductsSuccess) {
+                return const LowerWidgetsHome();
+              } else if (state is AllProductsFiltered) {
+                if (state.filteredproducts.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No Products Found",
+                      selectionColor: AppColors.darkBlue,
+                    ),
+                  );
+                }
+                return GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 15,
+                    childAspectRatio: 0.7,
+                  ),
+                  itemCount: state.filteredproducts.length,
+                  itemBuilder: (context, index) {
+                    final product = state.filteredproducts[index];
+                    return CustomProduct(product: product);
+                  },
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
+        ],
+      ),
     );
   }
 }

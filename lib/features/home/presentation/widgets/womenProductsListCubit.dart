@@ -16,7 +16,7 @@ class Womenproductslistcubit extends StatelessWidget {
         List<ProductModel> products = [];
 
         if (state is AllProductsSuccess) {
-          products = state.products;
+          products = state.products.take(11).toList();
         } else if (state is AllProductsfailure) {
           return Center(child: Text(state.errorMessage));
         } else if (state is AllProductsLoading) {

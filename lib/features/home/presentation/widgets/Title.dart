@@ -1,8 +1,8 @@
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class Title extends StatelessWidget {
-  const Title({super.key, required this.title});
+class TitleHeadLine extends StatelessWidget {
+  const TitleHeadLine({super.key, required this.title});
   final String title;
   @override
   Widget build(BuildContext context) {

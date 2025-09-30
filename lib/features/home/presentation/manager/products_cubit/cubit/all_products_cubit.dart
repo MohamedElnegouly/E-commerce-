@@ -7,19 +7,33 @@ part 'all_products_state.dart';
 
 class AllProductsCubit extends Cubit<AllProductsState> {
   AllProductsCubit(this.homeRepo) : super(AllProductsInitial());
+
   final HomeRepo homeRepo;
+  List<ProductModel> _allProducts = [];
+
   Future<void> getProducts() async {
     emit(AllProductsLoading());
-    var result = await homeRepo.getProducts(
-      categoryId: '6439d58a0049ad0b52b9003f',
-    );
+    var result = await homeRepo.getProducts();
     result.fold(
       (failure) {
         emit(AllProductsfailure(errorMessage: failure.errMessage));
       },
       (products) {
+        _allProducts = products; // نخزن كل المنتجات
         emit(AllProductsSuccess(products: products));
       },
     );
   }
+
+  void filterProducts(String query) {
+    if (query.isEmpty) {
+      emit(AllProductsSuccess(products: _allProducts));
+    } else {
+      final filtered = _allProducts
+          .where((product) => product.title!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      emit(AllProductsFiltered(filteredproducts: filtered));
+    }
+  }
 }
+

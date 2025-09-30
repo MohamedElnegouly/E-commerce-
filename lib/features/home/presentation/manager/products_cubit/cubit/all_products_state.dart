@@ -18,3 +18,8 @@ final class AllProductsfailure extends AllProductsState {
 
   AllProductsfailure({required this.errorMessage});
 }
+
+final class AllProductsFiltered extends AllProductsState {
+  final List<ProductModel> filteredproducts;
+  AllProductsFiltered({required this.filteredproducts});
+}
