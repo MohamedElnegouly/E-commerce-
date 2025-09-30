@@ -33,57 +33,54 @@ class _HomeBodyState extends State<HomeBody> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: ListView(
-        children: [
-          const CustomAppBar(),
-          CustomSearch(
-            controller: _searchController,
-            onClear: () {
-              _searchController.clear();
-              context.read<AllProductsCubit>().filterProducts('');
-            },
-          ),
-          const SizedBox(height: 16),
-          BlocBuilder<AllProductsCubit, AllProductsState>(
-            builder: (context, state) {
-              if (state is AllProductsLoading) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (state is AllProductsfailure) {
-                return Center(child: Text(state.errorMessage));
-              } else if (state is AllProductsSuccess) {
-                return const LowerWidgetsHome();
-              } else if (state is AllProductsFiltered) {
-                if (state.filteredproducts.isEmpty) {
-                  return Center(
-                    child: Text(
-                      "No Products Found",
-                      selectionColor: AppColors.darkBlue,
-                    ),
-                  );
-                }
-                return GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 15,
-                    childAspectRatio: 0.7,
+    return ListView(
+      children: [
+        const CustomAppBar(),
+        CustomSearch(
+          controller: _searchController,
+          onClear: () {
+            _searchController.clear();
+            context.read<AllProductsCubit>().filterProducts('');
+          },
+        ),
+        const SizedBox(height: 16),
+        BlocBuilder<AllProductsCubit, AllProductsState>(
+          builder: (context, state) {
+            if (state is AllProductsLoading) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (state is AllProductsfailure) {
+              return Center(child: Text(state.errorMessage));
+            } else if (state is AllProductsSuccess) {
+              return const LowerWidgetsHome();
+            } else if (state is AllProductsFiltered) {
+              if (state.filteredproducts.isEmpty) {
+                return Center(
+                  child: Text(
+                    "No Products Found",
+                    selectionColor: AppColors.darkBlue,
                   ),
-                  itemCount: state.filteredproducts.length,
-                  itemBuilder: (context, index) {
-                    final product = state.filteredproducts[index];
-                    return CustomProduct(product: product);
-                  },
                 );
               }
-              return const SizedBox.shrink();
-            },
-          ),
-        ],
-      ),
+              return GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 15,
+                  childAspectRatio: 0.7,
+                ),
+                itemCount: state.filteredproducts.length,
+                itemBuilder: (context, index) {
+                  final product = state.filteredproducts[index];
+                  return CustomProduct(product: product);
+                },
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        ),
+      ],
     );
   }
 }
