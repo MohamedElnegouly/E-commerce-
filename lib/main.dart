@@ -4,6 +4,9 @@ import 'package:e_commerce/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+   // ✅ تأكد إن Flutter جاهز لتحميل أي async dependencies
+  WidgetsFlutterBinding.ensureInitialized();
+
   setupServiceLocator();
   runApp(const MyApp());
 }
@@ -13,10 +16,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      onGenerateRoute: AppRouters().onGenerateRoute,
-      initialRoute: AppRoutersStrings.home,
+      routerConfig: AppRouters.router,
     );
   }
 }
