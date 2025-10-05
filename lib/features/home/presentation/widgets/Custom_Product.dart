@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
 import 'package:flutter/material.dart';
@@ -25,24 +26,36 @@ class CustomProduct extends StatelessWidget {
           Stack(
             children: [
               ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                ),
-                child: product.imageCover?.isNotEmpty == true
-                    ? Image.network(
-                        product.imageCover!,
-                        height: size.height * 0.18,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      )
-                    : Image.asset(
-                        "assets/images/Frame 65.png",
-                        height: size.height * 0.18,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-              ),
+  borderRadius: const BorderRadius.only(
+    topLeft: Radius.circular(12),
+    topRight: Radius.circular(12),
+  ),
+  child: product.imageCover?.isNotEmpty == true
+      ? CachedNetworkImage(
+          imageUrl: product.imageCover!,
+          height: size.height * 0.18,
+          width: double.infinity,
+          fit: BoxFit.cover,
+          placeholder: (context, url) => Container(
+            color: Colors.grey.shade200,
+            child: const Center(
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          ),
+          errorWidget: (context, url, error) => Image.asset(
+            "assets/images/Frame 65.png",
+            height: size.height * 0.18,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        )
+      : Image.asset(
+          "assets/images/Frame 65.png",
+          height: size.height * 0.18,
+          width: double.infinity,
+          fit: BoxFit.cover,
+        ),
+),
               Positioned(
                 top: 8,
                 right: 8,
