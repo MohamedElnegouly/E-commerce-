@@ -8,7 +8,7 @@ class CustomNavigationBar extends StatelessWidget {
   final List<Map<String, dynamic>> _items = const [
     {"icon": Icons.home, "path": "/home"},
     {"icon": Icons.apps, "path": "/categories"},
-    {"icon": Icons.shopping_cart, "path": "/cart"},
+    {"icon": Icons.favorite_border_outlined, "path": "/cart"},
     {"icon": Icons.person, "path": "/profile"},
   ];
 

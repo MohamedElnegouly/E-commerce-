@@ -1,4 +1,4 @@
-import 'package:e_commerce/features/home/presentation/widgets/Categories_Screen.dart';
+import 'package:e_commerce/features/category/presentation/Categories_Screen.dart';
 import 'package:e_commerce/features/home/presentation/widgets/Profile_Screen.dart';
 import 'package:e_commerce/features/home/presentation/widgets/card_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ import 'package:e_commerce/features/home/presentation/widgets/Home_Body.dart';
 import 'package:e_commerce/features/home/presentation/widgets/custom_navigation_bar.dart';
 class AppRouters {
   static final router = GoRouter(
-    initialLocation: AppRoutersStrings.home,
+    initialLocation: AppRoutersStrings.categories,
     routes: [
       /// 🔹 Splash Screen
       GoRoute(
