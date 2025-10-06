@@ -8,7 +8,7 @@ part 'sub_category_state.dart';
 class SubCategoryCubit extends Cubit<SubCategoryState> {
   SubCategoryCubit(this.categoriesRepo) : super(SubCategoryInitial());
   final CategoriesRepo categoriesRepo;
-  Future<void> getSubCategories() async {
+  Future<void> getSubCategories({required String categoryID}) async {
     emit(SubCategoryLoading());
     var result = await categoriesRepo.getSubCategory();
      result.fold(
