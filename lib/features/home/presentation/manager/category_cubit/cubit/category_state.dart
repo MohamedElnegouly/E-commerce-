@@ -15,10 +15,7 @@ final class CategorySuccess extends CategoryState {
     this.showAll = false, // افتراضي يعرض أول صفين بس
   });
 
-  CategorySuccess copyWith({
-    List<CategoryModel>? categories,
-    bool? showAll,
-  }) {
+  CategorySuccess copyWith({List<CategoryModel>? categories, bool? showAll}) {
     return CategorySuccess(
       categories: categories ?? this.categories,
       showAll: showAll ?? this.showAll,

@@ -39,7 +39,8 @@ class CustomSearch extends StatelessWidget {
                             onPressed: () {
                               controller.clear(); // مسح النص
                               FocusScope.of(context).unfocus(); // يقفل الكيبورد
-                              if (onClear != null) onClear!(); // ينفذ الكول باك لو موجود
+                              if (onClear != null)
+                                onClear!(); // ينفذ الكول باك لو موجود
                             },
                           )
                         : null,

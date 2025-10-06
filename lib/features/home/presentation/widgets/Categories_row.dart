@@ -29,7 +29,9 @@ class CategoriesRow extends StatelessWidget {
               const Spacer(),
               TextButton(
                 onPressed: () {
-                  context.read<CategoryCubit>().toggleShowAll(); //call the method to toggle the value
+                  context
+                      .read<CategoryCubit>()
+                      .toggleShowAll(); //call the method to toggle the value
                 },
                 child: Text(
                   showAll ? "See Less" : "See All",

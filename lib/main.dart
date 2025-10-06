@@ -4,7 +4,7 @@ import 'package:e_commerce/core/utils/service_locator.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-   // ✅ تأكد إن Flutter جاهز لتحميل أي async dependencies
+  // ✅ تأكد إن Flutter جاهز لتحميل أي async dependencies
   WidgetsFlutterBinding.ensureInitialized();
 
   setupServiceLocator();

@@ -30,10 +30,12 @@ class AllProductsCubit extends Cubit<AllProductsState> {
       emit(AllProductsSuccess(products: _allProducts));
     } else {
       final filtered = _allProducts
-          .where((product) => product.title!.toLowerCase().contains(query.toLowerCase()))
+          .where(
+            (product) =>
+                product.title!.toLowerCase().contains(query.toLowerCase()),
+          )
           .toList();
       emit(AllProductsFiltered(filteredproducts: filtered));
     }
   }
 }
-

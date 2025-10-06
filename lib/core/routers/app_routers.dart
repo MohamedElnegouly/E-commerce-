@@ -16,6 +16,7 @@ import 'package:e_commerce/features/home/presentation/manager/men_cubit/cubit/me
 import 'package:e_commerce/features/home/presentation/manager/products_cubit/cubit/all_products_cubit.dart';
 import 'package:e_commerce/features/home/presentation/widgets/Home_Body.dart';
 import 'package:e_commerce/features/home/presentation/widgets/custom_navigation_bar.dart';
+
 class AppRouters {
   static final router = GoRouter(
     initialLocation: AppRoutersStrings.categories,
@@ -57,7 +58,8 @@ class AppRouters {
               ),
               BlocProvider(
                 create: (context) =>
-                    ElectronicsProductCubit(getIt.get<HomeRepo>())..getProducts(),
+                    ElectronicsProductCubit(getIt.get<HomeRepo>())
+                      ..getProducts(),
               ),
             ],
             child: Scaffold(

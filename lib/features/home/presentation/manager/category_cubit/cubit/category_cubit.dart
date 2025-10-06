@@ -20,6 +20,7 @@ class CategoryCubit extends Cubit<CategoryState> {
       },
     );
   }
+
   void toggleShowAll() {
     if (state is CategorySuccess) {
       final currentState = state as CategorySuccess;

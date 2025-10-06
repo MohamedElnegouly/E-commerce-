@@ -36,8 +36,8 @@ class HomeRepoImpl implements HomeRepo {
 
   @override
   Future<Either<Failure, List<CategoryModel>>> getCategory() async {
-    try{
-      var data = await apiService.get(endPoint:'categories/');
+    try {
+      var data = await apiService.get(endPoint: 'categories/');
       List<CategoryModel> category = [];
       for (var item in data['data']) {
         category.add(CategoryModel.fromJson(item));

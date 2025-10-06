@@ -10,7 +10,9 @@ class MenProductCubit extends Cubit<MenProductState> {
   final HomeRepo homeRepo;
   Future<void> getProducts() async {
     emit(MenProductLoading());
-    var result = await homeRepo.getProducts(categoryId:'6439d5b90049ad0b52b90048');
+    var result = await homeRepo.getProducts(
+      categoryId: '6439d5b90049ad0b52b90048',
+    );
     result.fold(
       (failure) {
         emit(MenProductfailure(errorMessage: failure.errMessage));
