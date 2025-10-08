@@ -1,4 +1,6 @@
+import 'package:e_commerce/features/category/data/repos/categories_repo.dart';
 import 'package:e_commerce/features/category/presentation/Categories_Screen.dart';
+import 'package:e_commerce/features/category/presentation/manager/cubit/category_screen_cubit.dart';
 import 'package:e_commerce/features/home/presentation/widgets/Profile_Screen.dart';
 import 'package:e_commerce/features/home/presentation/widgets/card_screen.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +54,10 @@ class AppRouters {
                 create: (context) =>
                     AllProductsCubit(getIt.get<HomeRepo>())..getProducts(),
               ),
+               BlocProvider(
+                  create: (context) => CategoryScreenCubit(getIt.get<CategoriesRepo>())..getCategory(),
+              ),
+             
               BlocProvider(
                 create: (context) =>
                     MenProductCubit(getIt.get<HomeRepo>())..getProducts(),

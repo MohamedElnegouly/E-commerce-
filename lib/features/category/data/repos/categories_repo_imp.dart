@@ -2,27 +2,27 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commerce/core/errors/failure.dart';
 import 'package:e_commerce/core/utils/Api_service.dart';
-import 'package:e_commerce/features/category/data/model/subCategory/sub_category_model.dart';
 import 'package:e_commerce/features/category/data/repos/categories_repo.dart';
+import 'package:e_commerce/features/home/data/model/category/categoryModel.dart';
 
 class CategoriesRepoImp implements CategoriesRepo{
    final ApiService apiService;
-  CategoriesRepoImp({required this.apiService});
+  CategoriesRepoImp(this.apiService);
   @override
- Future<Either<Failure, List<SubCategoryModel>>> getSubCategory({
+ Future<Either<Failure, List<CategoryModel>>> getSubCategory({
   String? categoryId,
 }) async {
   try {
-    String endpoint = "subcategories";
+    String endpoint = "categories/";
     if (categoryId != null) {
-      endpoint += "?category=$categoryId";
+      endpoint += "$categoryId/subcategories";
     }
     final data = await apiService.get(endPoint: endpoint);
     if (data['data'] == null) {
       return right([]);
     }
     final subCategories = (data['data'] as List)
-        .map((item) => SubCategoryModel.fromJson(item))
+        .map((item) => CategoryModel.fromJson(item))
         .toList();
 
     return right(subCategories);

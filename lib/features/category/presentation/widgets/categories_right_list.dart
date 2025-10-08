@@ -1,19 +1,30 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
+import 'package:e_commerce/features/home/data/model/category/categoryModel.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesRightList extends StatelessWidget {
-  const CategoriesRightList({super.key, required this.category});
-  final Map<String, dynamic> category;
+  const CategoriesRightList({
+    super.key,
+    required this.categoryName,
+    required this.bannerImage,
+    required this.subCategories,
+  });
+
+  final String categoryName;
+  final String bannerImage;
+  final List<CategoryModel> subCategories;
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      color: Colors.white,
+      child: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         children: [
+          // 🟦 عنوان التصنيف
           Text(
-            category["name"],
+            categoryName,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -21,11 +32,12 @@ class CategoriesRightList extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          // Banner Image
+
+          // 🟨 صورة البانر
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: CachedNetworkImage(
-              imageUrl: category["image"],
+              imageUrl: bannerImage,
               height: 140,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -40,32 +52,38 @@ class CategoriesRightList extends StatelessWidget {
                   const Icon(Icons.broken_image, size: 60),
             ),
           ),
-          const SizedBox(height: 16),
+
+          const SizedBox(height: 20),
+
+          // 🟩 شبكة الفئات الفرعية (Subcategories)
           GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true, // ✅ علشان تاخد حجم محتواها فقط
+            physics:
+                const NeverScrollableScrollPhysics(), // ✅ ممنوع تسكرول لوحدها
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              mainAxisSpacing: 5,
-              crossAxisSpacing: 5,
-              childAspectRatio: 0.8,
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              childAspectRatio: 0.75,
             ),
-            itemCount: (category["subs"] as List).length,
+            itemCount: subCategories.length,
             itemBuilder: (context, index) {
-              final sub = category["subs"][index];
+              final subCategory = subCategories[index];
               return Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: CachedNetworkImage(
-                      imageUrl: sub["image"],
+                      imageUrl: subCategory.image ??
+                          'https://picsum.photos/300/120',
                       height: 70,
                       width: 70,
                       fit: BoxFit.cover,
                       placeholder: (context, url) => Container(
                         height: 70,
                         width: 70,
-                        color: Colors.grey.shade300,
+                        color: Colors.grey.shade200,
                       ),
                       errorWidget: (context, url, error) =>
                           const Icon(Icons.error, color: Colors.red),
@@ -73,7 +91,8 @@ class CategoriesRightList extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    sub["name"],
+                    subCategory.name ?? "Subcategory",
+                    textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 13,
                       color: AppColors.primary,

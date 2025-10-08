@@ -34,56 +34,78 @@ class _BaseSearchScreenState extends State<BaseSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const CustomAppBar(),
-        CustomSearch(
-          controller: _searchController,
-          onClear: () {
-            _searchController.clear();
-            context.read<AllProductsCubit>().filterProducts('');
-          },
-        ),
-        const SizedBox(height: 16),
-
-        BlocBuilder<AllProductsCubit, AllProductsState>(
-          builder: (context, state) {
-            if (state is AllProductsLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is AllProductsfailure) {
-              return Center(child: Text(state.errorMessage));
-            } else if (state is AllProductsSuccess) {
-              // هنا الجزء المتغير
-              return widget.lowerContent;
-            } else if (state is AllProductsFiltered) {
-              if (state.filteredproducts.isEmpty) {
-                return Center(
-                  child: Text(
-                    "No Products Found",
-                    style: TextStyle(color: AppColors.darkBlue),
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            // 🟦 الهيدر
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  const CustomAppBar(),
+                  CustomSearch(
+                    controller: _searchController,
+                    onClear: () {
+                      _searchController.clear();
+                      context.read<AllProductsCubit>().filterProducts('');
+                    },
                   ),
-                );
-              }
-              return GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 15,
-                  childAspectRatio: 0.7,
-                ),
-                itemCount: state.filteredproducts.length,
-                itemBuilder: (context, index) {
-                  final product = state.filteredproducts[index];
-                  return CustomProduct(product: product);
-                },
-              );
-            }
-            return const SizedBox.shrink();
-          },
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
+
+            // 🟩 الـ body المتغير
+            BlocBuilder<AllProductsCubit, AllProductsState>(
+              builder: (context, state) {
+                if (state is AllProductsLoading) {
+                  return const SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                } else if (state is AllProductsfailure) {
+                  return SliverFillRemaining(
+                    hasScrollBody: false,
+                    child: Center(child: Text(state.errorMessage)),
+                  );
+                } else if (state is AllProductsSuccess) {
+                  // ✅ نعرض الـ lowerContent كـ SliverToBoxAdapter
+                  return SliverToBoxAdapter(child: widget.lowerContent);
+                } else if (state is AllProductsFiltered) {
+                  if (state.filteredproducts.isEmpty) {
+                    return const SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Center(child: Text("No Products Found")),
+                    );
+                  }
+
+                  return SliverPadding(
+                    padding: const EdgeInsets.symmetric(horizontal: 1),
+                    sliver: SliverGrid(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final product = state.filteredproducts[index];
+                        return CustomProduct(product: product);
+                      }, childCount: state.filteredproducts.length),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 15,
+                            childAspectRatio: 0.7,
+                          ),
+                    ),
+                  );
+                }
+
+                return const SliverToBoxAdapter(child: SizedBox.shrink());
+              },
+            ),
+
+            const SliverToBoxAdapter(child: SizedBox(height: 24)),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

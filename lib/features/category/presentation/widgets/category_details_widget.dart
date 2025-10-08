@@ -1,5 +1,7 @@
+import 'package:e_commerce/features/category/presentation/manager/cubit/category_screen_cubit.dart';
 import 'package:e_commerce/features/category/presentation/widgets/categories_right_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/categories_left_list.dart';
 
 class StaticCategoryScreen extends StatefulWidget {
@@ -11,68 +13,114 @@ class StaticCategoryScreen extends StatefulWidget {
 
 class _StaticCategoryScreenState extends State<StaticCategoryScreen> {
   int selectedIndex = 0;
-  String image = "https://picsum.photos/300/120";
-  final List<Map<String, dynamic>> dummyCategories = [
-    {
-      "name": "Women",
-      "image": "https://via.placeholder.com/300x120",
-      "subs": [
-        {"name": "Dresses", "image": "https://via.placeholder.com/150"},
-        {"name": "Shoes", "image": "https://via.placeholder.com/150"},
-        {"name": "Bags", "image": "https://via.placeholder.com/150"},
-      ],
-    },
-    {
-      "name": "Men",
-      "image": "https://via.placeholder.com/300x120",
-      "subs": [
-        {"name": "T-Shirts", "image": "https://picsum.photos/300/120"},
-        {"name": "Jeans", "image": "https://picsum.photos/300/120"},
-        {"name": "Jackets", "image": "https://picsum.photos/300/120"},
-      ],
-    },
-    {
-      "name": "Kids",
-      "image": "https://via.placeholder.com/300x120",
-      "subs": [
-        {"name": "Toys", "image": "https://picsum.photos/300/120"},
-        {"name": "Shoes", "image": "https://picsum.photos/300/120"},
-        {"name": "Accessories", "image": "https://via.placeholder.com/150"},
-        {"name": "Toys", "image": "https://via.placeholder.com/150"},
-        {"name": "Shoes", "image": "https://via.placeholder.com/150"},
-        {"name": "Accessories", "image": "https://via.placeholder.com/150"},
-      ],
-    },
-  ];
+  String? parentCategoryName;
+  String? parentCategoryImage;
+  bool _initialized = false; // ✅ عشان نمنع التحميل التلقائي أكثر من مرة
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<CategoryScreenCubit>().getCategory(); // 🟢 أول تحميل للكاتيجوري
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final category = dummyCategories[selectedIndex];
 
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.8, //
-      child: SafeArea(
-        child: SizedBox.expand(
-          child: Row(
-            children: [
-              // 🟦 القائمة اليسار
-              SizedBox(
-                width: size.width * 0.30,
-                child: CategoriesLeftList(
-                  dummyCategories: dummyCategories,
-                  size: size,
-                  selectedIndex: selectedIndex,
-                  onCategorySelected: (index) {
-                    setState(() => selectedIndex = index);
-                  },
-                ),
+    return SafeArea(
+      child: SizedBox(
+        height: size.height,
+        child: Row(
+          children: [
+            // 🟦 القائمة اليسار
+            Expanded(
+              flex: 3,
+              child: BlocBuilder<CategoryScreenCubit, CategoryScreenState>(
+                buildWhen: (prev, curr) =>
+                    curr is CategoryScreenSuccess || curr is CategoryScreenFailure,
+                builder: (context, state) {
+                  if (state is CategoryScreenLoading && parentCategoryName == null) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (state is CategoryScreenFailure) {
+                    return Center(child: Text("Error: ${state.errorMessage}"));
+                  }
+
+                  if (state is CategoryScreenSuccess) {
+                    final allCategories = state.categories;
+
+                    // ✅ تحميل أول كاتيجوري تلقائيًا لمرة واحدة فقط
+                    if (!_initialized && allCategories.isNotEmpty) {
+                      _initialized = true;
+                      selectedIndex = 0;
+                      parentCategoryName = allCategories[0].name;
+                      parentCategoryImage = allCategories[0].image;
+                      Future.microtask(() {
+                        context
+                            .read<CategoryScreenCubit>()
+                            .getCategory(categoryId: allCategories[0].id);
+                      });
+                    }
+
+                    return CategoriesLeftList(
+                      dummyCategories: allCategories,
+                      size: size,
+                      selectedIndex: selectedIndex,
+                      onCategorySelected: (index) {
+                        setState(() {
+                          selectedIndex = index;
+                          parentCategoryName = allCategories[index].name;
+                          parentCategoryImage = allCategories[index].image;
+                        });
+
+                        context
+                            .read<CategoryScreenCubit>()
+                            .getCategory(categoryId: allCategories[index].id);
+                      },
+                    );
+                  }
+
+                  return const SizedBox.shrink();
+                },
               ),
+            ),
 
-              // 🟨 تفاصيل التصنيف
-              Expanded(child: CategoriesRightList(category: category)),
-            ],
-          ),
+            // 🟨 الجزء اليمين
+            Expanded(
+              flex: 7,
+              child: BlocBuilder<CategoryScreenCubit, CategoryScreenState>(
+                buildWhen: (prev, curr) =>
+                    curr is SubCategoryLoaded ||
+                    curr is CategoryScreenLoading ||
+                    curr is CategoryScreenFailure,
+                builder: (context, state) {
+                  if (state is CategoryScreenLoading && parentCategoryName != null) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  if (state is CategoryScreenFailure) {
+                    return Center(child: Text("Error: ${state.errorMessage}"));
+                  }
+
+                  if (state is SubCategoryLoaded) {
+                    return CategoriesRightList(
+                      categoryName: parentCategoryName ?? "Category",
+                      bannerImage: parentCategoryImage ?? "",
+                      subCategories: state.subCategories,
+                    );
+                  }
+
+                  return const Center(
+                    child: Text(
+                      "Select a category to view subcategories",
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

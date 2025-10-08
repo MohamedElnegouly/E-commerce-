@@ -16,7 +16,7 @@ class CategoryCubit extends Cubit<CategoryState> {
         emit(CategoryFailure(errorMessage: failure.errMessage));
       },
       (categories) {
-        emit(CategorySuccess(categories: categories));
+        emit(CategorySuccess(categories: categories)); // ✅ لو main categories
       },
     );
   }

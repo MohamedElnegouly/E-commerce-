@@ -8,39 +8,54 @@ abstract class Failure {
 
 class ServerError extends Failure {
   ServerError(super.errMessage);
+
   factory ServerError.fromDioError(DioException dioError) {
     switch (dioError.type) {
       case DioExceptionType.connectionTimeout:
-        return ServerError("Conection timeOut with ApiServer");
+        return ServerError("Connection timeout with API server");
       case DioExceptionType.sendTimeout:
-        return ServerError("Send timeOut with ApiServer");
+        return ServerError("Send timeout with API server");
       case DioExceptionType.receiveTimeout:
-        return ServerError("Receive timeOut with ApiServer");
+        return ServerError("Receive timeout with API server");
       case DioExceptionType.badCertificate:
-        return ServerError(" Bad certificate Conection");
+        return ServerError("Bad certificate connection");
       case DioExceptionType.badResponse:
+        final response = dioError.response;
         return ServerError.fromResponse(
-          dioError.response!.statusCode!,
-          dioError.response!.data,
+          response?.statusCode ?? 0,
+          response?.data,
         );
       case DioExceptionType.cancel:
-        return ServerError("Requist to Api server caneld");
+        return ServerError("Request to API server was cancelled");
       case DioExceptionType.connectionError:
-        return ServerError("No internet Conection");
+        return ServerError("No internet connection");
       case DioExceptionType.unknown:
-        return ServerError("Un expected error please try again");
+      default:
+        return ServerError("Unexpected error, please try again");
     }
   }
 
   factory ServerError.fromResponse(int statusCode, dynamic response) {
-    if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerError(response['error']['message']);
-    } else if (statusCode == 404) {
-      return ServerError('Your response not found , please try later! ');
-    } else if (statusCode == 500) {
-      return ServerError('internal server error, please try later! ');
-    } else {
-      return ServerError('Oops there was an error  , please try again');
+    // تأكد إن response فعلاً Map
+    if (response is! Map<String, dynamic>) {
+      return ServerError("حدث خطأ غير متوقع من السيرفر");
     }
+
+    if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
+      return ServerError(_extractErrorMessage(response));
+    } else if (statusCode == 404) {
+      return ServerError('Your request was not found, please try later!');
+    } else if (statusCode == 500) {
+      return ServerError('Internal server error, please try later!');
+    } else {
+      return ServerError('Oops, there was an error, please try again');
+    }
+  }
+
+  static String _extractErrorMessage(Map<String, dynamic>? response) {
+    // استخدام الوصول الآمن
+    return response?['error']?['message']?.toString() ??
+        response?['message']?.toString() ??
+        'حدث خطأ غير متوقع، حاول لاحقًا.';
   }
 }
