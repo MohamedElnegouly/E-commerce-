@@ -2,10 +2,10 @@ import 'package:e_commerce/features/category/presentation/widgets/categories_bod
 import 'package:flutter/material.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key});
-
+  const CategoriesScreen({super.key, this.initialCategoryId});
+  final String? initialCategoryId;
   @override
   Widget build(BuildContext context) {
-    return const CategoriesBody();
+    return CategoriesBody(initialCategoryId: initialCategoryId);
   }
 }

@@ -1,12 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
-import 'package:e_commerce/features/category/presentation/manager/cubit/sub_categories_peoducts_cubit.dart';
 import 'package:e_commerce/features/category/presentation/widgets/SubCategoryProductsScreen.dart';
-import 'package:e_commerce/features/category/presentation/widgets/subCategoriesProductsListview.dart';
 import 'package:e_commerce/features/home/data/model/category/categoryModel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class CategoriesRightList extends StatelessWidget {
   const CategoriesRightList({

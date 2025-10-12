@@ -5,7 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/categories_left_list.dart';
 
 class StaticCategoryScreen extends StatefulWidget {
-  const StaticCategoryScreen({super.key});
+  const StaticCategoryScreen({super.key, this.initialCategoryId});
+  final String? initialCategoryId;
 
   @override
   State<StaticCategoryScreen> createState() => _StaticCategoryScreenState();
@@ -15,12 +16,13 @@ class _StaticCategoryScreenState extends State<StaticCategoryScreen> {
   int selectedIndex = 0;
   String? parentCategoryName;
   String? parentCategoryImage;
-  bool _initialized = false; // ✅ عشان نمنع التحميل التلقائي أكثر من مرة
+  bool _initialized = false;
 
   @override
   void initState() {
     super.initState();
-    context.read<CategoryScreenCubit>().getCategory(); // 🟢 أول تحميل للكاتيجوري
+    // 🟢 تحميل قائمة الفئات الرئيسية أول مرة فقط
+    context.read<CategoryScreenCubit>().getCategory();
   }
 
   @override
@@ -37,9 +39,11 @@ class _StaticCategoryScreenState extends State<StaticCategoryScreen> {
               flex: 3,
               child: BlocBuilder<CategoryScreenCubit, CategoryScreenState>(
                 buildWhen: (prev, curr) =>
-                    curr is CategoryScreenSuccess || curr is CategoryScreenFailure,
+                    curr is CategoryScreenSuccess ||
+                    curr is CategoryScreenFailure,
                 builder: (context, state) {
-                  if (state is CategoryScreenLoading && parentCategoryName == null) {
+                  if (state is CategoryScreenLoading &&
+                      parentCategoryName == null) {
                     return const Center(child: CircularProgressIndicator());
                   }
 
@@ -50,16 +54,32 @@ class _StaticCategoryScreenState extends State<StaticCategoryScreen> {
                   if (state is CategoryScreenSuccess) {
                     final allCategories = state.categories;
 
-                    // ✅ تحميل أول كاتيجوري تلقائيًا لمرة واحدة فقط
+                    // ✅ التحميل التلقائي لأول أو Initial Category
                     if (!_initialized && allCategories.isNotEmpty) {
                       _initialized = true;
-                      selectedIndex = 0;
-                      parentCategoryName = allCategories[0].name;
-                      parentCategoryImage = allCategories[0].image;
+
+                      // نبحث عن الـ ID اللي جاي من الهوم
+                      final initialIndex = widget.initialCategoryId != null
+                          ? allCategories.indexWhere(
+                              (c) => c.id == widget.initialCategoryId,
+                            )
+                          : 0;
+
+                      selectedIndex =
+                          (initialIndex >= 0) ? initialIndex : 0;
+                      parentCategoryName =
+                          allCategories[selectedIndex].name;
+                      parentCategoryImage =
+                          allCategories[selectedIndex].image;
+
+                      // نستخدم microtask لتفادي setState أثناء build
                       Future.microtask(() {
-                        context
-                            .read<CategoryScreenCubit>()
-                            .getCategory(categoryId: allCategories[0].id);
+                        if (mounted) {
+                          context.read<CategoryScreenCubit>().getCategory(
+                                categoryId:
+                                    allCategories[selectedIndex].id,
+                              );
+                        }
                       });
                     }
 
@@ -71,12 +91,13 @@ class _StaticCategoryScreenState extends State<StaticCategoryScreen> {
                         setState(() {
                           selectedIndex = index;
                           parentCategoryName = allCategories[index].name;
-                          parentCategoryImage = allCategories[index].image;
+                          parentCategoryImage =
+                              allCategories[index].image;
                         });
 
-                        context
-                            .read<CategoryScreenCubit>()
-                            .getCategory(categoryId: allCategories[index].id);
+                        context.read<CategoryScreenCubit>().getCategory(
+                              categoryId: allCategories[index].id,
+                            );
                       },
                     );
                   }
@@ -86,7 +107,7 @@ class _StaticCategoryScreenState extends State<StaticCategoryScreen> {
               ),
             ),
 
-            // 🟨 الجزء اليمين
+            // 🟨 الجزء اليمين (SubCategories)
             Expanded(
               flex: 7,
               child: BlocBuilder<CategoryScreenCubit, CategoryScreenState>(
@@ -95,7 +116,8 @@ class _StaticCategoryScreenState extends State<StaticCategoryScreen> {
                     curr is CategoryScreenLoading ||
                     curr is CategoryScreenFailure,
                 builder: (context, state) {
-                  if (state is CategoryScreenLoading && parentCategoryName != null) {
+                  if (state is CategoryScreenLoading &&
+                      parentCategoryName != null) {
                     return const Center(child: CircularProgressIndicator());
                   }
 

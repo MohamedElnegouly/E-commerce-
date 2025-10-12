@@ -3,10 +3,10 @@ import 'package:e_commerce/features/category/presentation/widgets/category_detai
 import 'package:flutter/material.dart';
 
 class CategoriesBody extends StatelessWidget {
-  const CategoriesBody({super.key});
-
+  const CategoriesBody({super.key, this.initialCategoryId});
+final String? initialCategoryId;
   @override
   Widget build(BuildContext context) {
-    return const BaseSearchScreen(lowerContent: StaticCategoryScreen());
+    return BaseSearchScreen(lowerContent: StaticCategoryScreen( initialCategoryId: initialCategoryId,));
   }
 }

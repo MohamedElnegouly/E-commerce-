@@ -1,7 +1,6 @@
 import 'package:e_commerce/features/category/data/repos/categories_repo.dart';
 import 'package:e_commerce/features/category/presentation/Categories_Screen.dart';
 import 'package:e_commerce/features/category/presentation/manager/cubit/category_screen_cubit.dart';
-import 'package:e_commerce/features/category/presentation/manager/cubit/sub_categories_peoducts_cubit.dart';
 import 'package:e_commerce/features/home/presentation/widgets/Profile_Screen.dart';
 import 'package:e_commerce/features/home/presentation/widgets/card_screen.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +82,13 @@ class AppRouters {
           ),
           GoRoute(
             path: AppRoutersStrings.categories,
-            builder: (context, state) => const CategoriesScreen(),
+            builder: (context, state) {
+              final categoryId = state.uri.queryParameters['categoryId'];
+              return BlocProvider(
+                create: (_) => getIt<CategoryScreenCubit>(),
+                child: CategoriesScreen(initialCategoryId: categoryId),
+              );
+            },
           ),
           GoRoute(
             path: AppRoutersStrings.cart,
