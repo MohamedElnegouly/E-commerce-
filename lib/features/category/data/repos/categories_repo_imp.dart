@@ -4,12 +4,13 @@ import 'package:e_commerce/core/errors/failure.dart';
 import 'package:e_commerce/core/utils/Api_service.dart';
 import 'package:e_commerce/features/category/data/repos/categories_repo.dart';
 import 'package:e_commerce/features/home/data/model/category/categoryModel.dart';
+import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
 
 class CategoriesRepoImp implements CategoriesRepo{
    final ApiService apiService;
   CategoriesRepoImp(this.apiService);
   @override
- Future<Either<Failure, List<CategoryModel>>> getSubCategory({
+ Future<Either<Failure, List<CategoryModel>>> getCategory({
   String? categoryId,
 }) async {
   try {
@@ -33,5 +34,22 @@ class CategoriesRepoImp implements CategoriesRepo{
     return left(ServerError(e.toString()));
   }
 }
+
+  @override
+  Future<Either<Failure, List<ProductModel>>> getSubCategoriesProducts({String? categoryId})async {
+    try {
+       var data = await apiService.get(endPoint: 'products/$categoryId');
+      List<ProductModel> products = [];
+      for (var item in data['data']) {
+        products.add(ProductModel.fromJson(item));
+      }
+      return right(products);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerError.fromDioError(e));
+      }
+      return left(ServerError(e.toString()));
+    }
+  }
 
 }

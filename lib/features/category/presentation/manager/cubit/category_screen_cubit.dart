@@ -10,7 +10,7 @@ class CategoryScreenCubit extends Cubit<CategoryScreenState> {
   final CategoriesRepo categoriesRepo;
   Future<void> getCategory({String? categoryId}) async {
     emit(CategoryScreenLoading());
-    var result = await categoriesRepo.getSubCategory(categoryId: categoryId);
+    var result = await categoriesRepo.getCategory(categoryId: categoryId);
     result.fold(
       (failure) {
         emit(CategoryScreenFailure(errorMessage: failure.errMessage));
