@@ -1,7 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
+import 'package:e_commerce/features/category/presentation/manager/cubit/sub_categories_peoducts_cubit.dart';
+import 'package:e_commerce/features/category/presentation/widgets/SubCategoryProductsScreen.dart';
+import 'package:e_commerce/features/category/presentation/widgets/subCategoriesProductsListview.dart';
 import 'package:e_commerce/features/home/data/model/category/categoryModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoriesRightList extends StatelessWidget {
   const CategoriesRightList({
@@ -72,21 +77,35 @@ class CategoriesRightList extends StatelessWidget {
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: CachedNetworkImage(
-                      imageUrl: subCategory.image ??
-                          'https://picsum.photos/300/120',
-                      height: 70,
-                      width: 70,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => Container(
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SubCategoryProductsScreen(
+                            subCategoryId: subCategory.id!, subCategoryName: subCategory.name ?? 'SubCategory',
+                          ),
+                        ),
+                      );
+                    },
+
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                        imageUrl:
+                            subCategory.image ??
+                            'https://picsum.photos/300/120',
                         height: 70,
                         width: 70,
-                        color: Colors.grey.shade200,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => Container(
+                          height: 70,
+                          width: 70,
+                          color: Colors.grey.shade200,
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error, color: Colors.red),
                       ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error, color: Colors.red),
                     ),
                   ),
                   const SizedBox(height: 6),
