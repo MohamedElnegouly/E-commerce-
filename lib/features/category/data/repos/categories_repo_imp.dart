@@ -36,9 +36,9 @@ class CategoriesRepoImp implements CategoriesRepo{
 }
 
   @override
-  Future<Either<Failure, List<ProductModel>>> getSubCategoriesProducts({String? categoryId})async {
+  Future<Either<Failure, List<ProductModel>>> getSubCategoriesProducts({String? subCategoryId})async {
     try {
-       var data = await apiService.get(endPoint: 'products/$categoryId');
+       var data = await apiService.get(endPoint: 'products?subcategory=$subCategoryId');
       List<ProductModel> products = [];
       for (var item in data['data']) {
         products.add(ProductModel.fromJson(item));

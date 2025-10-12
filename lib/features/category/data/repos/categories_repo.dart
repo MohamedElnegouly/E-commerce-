@@ -8,6 +8,6 @@ abstract class CategoriesRepo {
     String? categoryId,
   });
   Future<Either<Failure, List<ProductModel>>> getSubCategoriesProducts({
-    String? categoryId,
+    String? subCategoryId,
   });
 }
