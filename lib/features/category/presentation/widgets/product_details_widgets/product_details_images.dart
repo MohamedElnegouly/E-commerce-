@@ -3,28 +3,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class ProductDetailsImages extends StatelessWidget {
   final List<String>? imageUrls;
-
   const ProductDetailsImages({super.key, this.imageUrls});
-
   @override
   Widget build(BuildContext context) {
-    final images =
-        imageUrls ??
-        const [
-          'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-          'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
-          'https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg',
-        ];
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SizedBox(
         height: 200,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: images.length,
+          itemCount: imageUrls!.length,
           itemBuilder: (context, index) {
-            final imageUrl = images[index];
+            final imageUrl = imageUrls![index];
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: ClipRRect(

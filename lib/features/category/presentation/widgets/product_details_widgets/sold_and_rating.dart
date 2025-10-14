@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SoldAndRating extends StatelessWidget {
-  const SoldAndRating({super.key});
+  const SoldAndRating({super.key, this.sold, this.ratingsAverage, this.ratingsQuantity});
+  final num? sold;
+ final num? ratingsAverage;
+final int? ratingsQuantity;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class SoldAndRating extends StatelessWidget {
                   left: 16,
                   top: 8,
                   child: Text(
-                    '3,230 Sold',
+                    '$sold Sold',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColors.darkBlue,
@@ -51,8 +54,8 @@ class SoldAndRating extends StatelessWidget {
             children: [
               Icon(CupertinoIcons.star_fill, size: 20, color: Colors.amber),
               SizedBox(width: 4),
-              Text('4.8', textAlign: TextAlign.center, style: textStyle()),
-              Text('(7,500)', textAlign: TextAlign.center, style: textStyle()),
+              Text(ratingsAverage.toString(), textAlign: TextAlign.center, style: textStyle()),
+              Text('($ratingsQuantity)', textAlign: TextAlign.center, style: textStyle()),
             ],
           ),
         ],

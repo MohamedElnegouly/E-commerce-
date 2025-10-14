@@ -2,8 +2,8 @@ import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class Description extends StatelessWidget {
-  const Description({super.key});
-
+  const Description({super.key, required this.description});
+  final String description;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,7 +23,7 @@ class Description extends StatelessWidget {
           ),
           SizedBox(height: 8),
           Text(
-            'This is a detailed description dfffffffffffffffffffffffffffffffffffffffffffffffdhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhof the product. It provides information about the features, specifications, and benefits of the product to help customers make informed purchasing decisions.',
+            description,
             style: TextStyle(
               color: AppColors.primary,
               fontSize: 14,

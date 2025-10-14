@@ -22,7 +22,7 @@ import 'package:e_commerce/features/home/presentation/widgets/custom_navigation_
 
 class AppRouters {
   static final router = GoRouter(
-    initialLocation: AppRoutersStrings.productDetails,
+    initialLocation: AppRoutersStrings.home,
     routes: [
       /// 🔹 Splash Screen
       GoRoute(
@@ -41,11 +41,6 @@ class AppRouters {
         path: AppRoutersStrings.register,
         builder: (context, state) => const RegisterScreen(),
       ),
-      GoRoute(
-        path: AppRoutersStrings.productDetails,
-        builder: (context, state) => const ProductDetails(),
-      ),
-
       /// 🧭 ShellRoute → يحتوي على Navigation Bar + Home Cubits
       ShellRoute(
         builder: (context, state, child) {

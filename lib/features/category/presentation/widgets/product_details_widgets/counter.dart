@@ -3,10 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Counter extends StatefulWidget {
-  final int unitPrice; // سعر القطعة الواحدة
-
-  const Counter({super.key, required this.unitPrice});
-
+  final num? unitPrice; // سعر القطعة الواحدة
+  const Counter({super.key, this.unitPrice});
   @override
   State<Counter> createState() => _CounterState();
 }
@@ -29,7 +27,7 @@ class _CounterState extends State<Counter> {
   @override
   Widget build(BuildContext context) {
     // نحسب السعر الكلي
-    final totalPrice = widget.unitPrice * quantity;
+    final totalPrice = widget.unitPrice! * quantity;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +50,7 @@ class _CounterState extends State<Counter> {
             ),
             const SizedBox(height: 8),
             Text(
-              'EGP ${totalPrice.toString()}',
+              'EGP $totalPrice',
               style: TextStyle(
                 color: AppColors.darkBlue,
                 fontSize: 18,
@@ -72,7 +70,7 @@ class _CounterState extends State<Counter> {
           width: 122,
           height: 42,
           decoration: ShapeDecoration(
-            color: const Color(0xFF004182),
+            color: AppColors.primary,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
