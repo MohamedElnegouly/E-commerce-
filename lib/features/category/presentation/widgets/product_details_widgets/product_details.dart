@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/widgets/Second_app_Bar.dart';
+import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/product_details_images.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -9,8 +10,12 @@ class ProductDetails extends StatelessWidget {
     return Scaffold(
       appBar: productAndcardAppBar('Product Details'),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [Center(child: Text('fghfgh'))],
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: 16),
+          ProductDetailsImages(),
+          SizedBox(height: 24),         
+        ],
       ),
     );
   }
