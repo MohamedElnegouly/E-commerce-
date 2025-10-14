@@ -1,4 +1,5 @@
 import 'package:e_commerce/core/utils/app_colors.dart';
+import 'package:e_commerce/core/widgets/shopping_Cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -70,11 +71,7 @@ class CustomSearch extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 24),
-          Icon(
-            CupertinoIcons.shopping_cart,
-            size: 27,
-            color: AppColors.primary,
-          ),
+          ShoppingCart(),
         ],
       ),
     );
