@@ -1,5 +1,7 @@
 import 'package:e_commerce/core/widgets/Second_app_Bar.dart';
 import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/product_details_images.dart';
+import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/sold_and_rating.dart';
+import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/title_price.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -14,7 +16,12 @@ class ProductDetails extends StatelessWidget {
         children: [
           SizedBox(height: 16),
           ProductDetailsImages(),
-          SizedBox(height: 24),         
+          SizedBox(height: 24),
+          TitlePrice(),
+          SizedBox(height: 16),
+          SoldAndRating(),
+          SizedBox(height: 16),
+          
         ],
       ),
     );
