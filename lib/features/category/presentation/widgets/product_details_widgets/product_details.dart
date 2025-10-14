@@ -1,4 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:e_commerce/core/widgets/Second_app_Bar.dart';
+import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/counter.dart';
+import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/description.dart';
 import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/product_details_images.dart';
 import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/sold_and_rating.dart';
 import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/title_price.dart';
@@ -21,7 +24,9 @@ class ProductDetails extends StatelessWidget {
           SizedBox(height: 16),
           SoldAndRating(),
           SizedBox(height: 16),
-          
+          Description(),
+          SizedBox(height: 16),
+          Counter(unitPrice: 2323),
         ],
       ),
     );
