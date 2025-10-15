@@ -4,7 +4,7 @@ import 'package:e_commerce/features/category/presentation/manager/cubit/category
 import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/product_details.dart';
 import 'package:e_commerce/features/favorite/presentation/manager/favorite_cubit/cubit/favorite_screen_cubit.dart';
 import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
-import 'package:e_commerce/features/home/presentation/widgets/Profile_Screen.dart';
+import 'package:e_commerce/features/profile/presentation/widgets/Profile_Screen.dart';
 import 'package:e_commerce/features/favorite/presentation/widgets/favorite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
