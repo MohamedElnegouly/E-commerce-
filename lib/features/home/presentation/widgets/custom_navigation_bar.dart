@@ -8,14 +8,14 @@ class CustomNavigationBar extends StatelessWidget {
   final List<Map<String, dynamic>> _items = const [
     {"icon": Icons.home, "path": "/home"},
     {"icon": Icons.apps, "path": "/categories"},
-    {"icon": Icons.favorite_border_outlined, "path": "/cart"},
+    {"icon": Icons.favorite_border_outlined, "path": "/favoriteScreen"},
     {"icon": Icons.person, "path": "/profile"},
   ];
 
   int _calculateSelectedIndex(BuildContext context) {
     final location = GoRouterState.of(context).uri.toString();
     if (location.startsWith('/categories')) return 1;
-    if (location.startsWith('/cart')) return 2;
+    if (location.startsWith('/favoriteScreen')) return 2;
     if (location.startsWith('/profile')) return 3;
     return 0; // default → home
   }

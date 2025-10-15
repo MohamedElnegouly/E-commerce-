@@ -2,6 +2,7 @@ import 'package:e_commerce/features/category/data/repos/categories_repo.dart';
 import 'package:e_commerce/features/category/presentation/Categories_Screen.dart';
 import 'package:e_commerce/features/category/presentation/manager/cubit/category_screen_cubit.dart';
 import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/product_details.dart';
+import 'package:e_commerce/features/favorite/presentation/manager/favorite_cubit/cubit/favorite_screen_cubit.dart';
 import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
 import 'package:e_commerce/features/home/presentation/widgets/Profile_Screen.dart';
 import 'package:e_commerce/features/favorite/presentation/widgets/favorite_screen.dart';
@@ -77,6 +78,7 @@ class AppRouters {
                     ElectronicsProductCubit(getIt.get<HomeRepo>())
                       ..getProducts(),
               ),
+              BlocProvider(create: (context) => FavoriteScreenCubit()),
             ],
             child: Scaffold(
               body: child,

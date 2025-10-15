@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:e_commerce/core/utils/app_routers_strings.dart';
+import 'package:e_commerce/features/favorite/presentation/manager/favorite_cubit/cubit/favorite_screen_cubit.dart';
 import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomProduct extends StatelessWidget {
@@ -16,10 +18,7 @@ class CustomProduct extends StatelessWidget {
     final scale = size.width / 400;
     return GestureDetector(
       onTap: () {
-        context.push(
-    AppRoutersStrings.productDetails,
-    extra: product,
-  );
+        context.push(AppRoutersStrings.productDetails, extra: product);
       },
       child: Card(
         shape: RoundedRectangleBorder(
@@ -68,14 +67,26 @@ class CustomProduct extends StatelessWidget {
                 Positioned(
                   top: 8,
                   right: 8,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 16 * scale.clamp(0.8, 1.2),
-                    child: Icon(
-                      Icons.favorite_border,
-                      color: Colors.blue,
-                      size: 18 * scale.clamp(0.8, 1.2),
-                    ),
+                  child: BlocBuilder<FavoriteScreenCubit, FavoriteScreenState>(
+                    builder: (context, state) {
+                      final favoritesCubit = context
+                          .read<FavoriteScreenCubit>();
+                      final isFav = favoritesCubit.isFavorite(product);
+                      return GestureDetector(
+                        onTap: () {
+                          favoritesCubit.toggleFavorite(product);
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 16,
+                          child: Icon(
+                            isFav ? Icons.favorite : Icons.favorite_border,
+                            color: isFav ? Colors.red : Colors.blue,
+                            size: 18,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
