@@ -4,7 +4,7 @@ import 'package:e_commerce/features/category/presentation/manager/cubit/category
 import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/product_details.dart';
 import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
 import 'package:e_commerce/features/home/presentation/widgets/Profile_Screen.dart';
-import 'package:e_commerce/features/home/presentation/widgets/card_screen.dart';
+import 'package:e_commerce/features/favorite/presentation/widgets/favorite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -100,8 +100,8 @@ class AppRouters {
             },
           ),
           GoRoute(
-            path: AppRoutersStrings.cart,
-            builder: (context, state) => const CardScreen(),
+            path: AppRoutersStrings.favoriteScreen,
+            builder: (context, state) => const FavoriteScreen(),
           ),
           GoRoute(
             path: AppRoutersStrings.profile,
