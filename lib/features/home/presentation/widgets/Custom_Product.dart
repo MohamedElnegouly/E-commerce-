@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
-import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/product_details.dart';
+import 'package:e_commerce/core/utils/app_routers_strings.dart';
 import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomProduct extends StatelessWidget {
   const CustomProduct({super.key, required this.product});
@@ -15,13 +16,10 @@ class CustomProduct extends StatelessWidget {
     final scale = size.width / 400;
     return GestureDetector(
       onTap: () {
-        // عند الضغط، نروح لصفحة التفاصيل
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProductDetails(product: product),
-          ),
-        );
+        context.push(
+    AppRoutersStrings.productDetails,
+    extra: product,
+  );
       },
       child: Card(
         shape: RoundedRectangleBorder(

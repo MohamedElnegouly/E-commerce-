@@ -2,6 +2,7 @@ import 'package:e_commerce/features/category/data/repos/categories_repo.dart';
 import 'package:e_commerce/features/category/presentation/Categories_Screen.dart';
 import 'package:e_commerce/features/category/presentation/manager/cubit/category_screen_cubit.dart';
 import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/product_details.dart';
+import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
 import 'package:e_commerce/features/home/presentation/widgets/Profile_Screen.dart';
 import 'package:e_commerce/features/home/presentation/widgets/card_screen.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,14 @@ class AppRouters {
         path: AppRoutersStrings.register,
         builder: (context, state) => const RegisterScreen(),
       ),
+      GoRoute(
+        path: AppRoutersStrings.productDetails,
+        builder: (context, state) {
+          final product = state.extra as ProductModel;
+          return ProductDetails(product: product);
+        },
+      ),
+
       /// 🧭 ShellRoute → يحتوي على Navigation Bar + Home Cubits
       ShellRoute(
         builder: (context, state, child) {
