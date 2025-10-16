@@ -10,7 +10,7 @@ class Counter extends StatefulWidget {
 }
 
 class _CounterState extends State<Counter> {
-  int quantity = 1;
+  int quantity = 0;
 
   void increment() {
     setState(() {
@@ -20,7 +20,7 @@ class _CounterState extends State<Counter> {
 
   void decrement() {
     setState(() {
-      if (quantity > 1) quantity--;
+      if (quantity > 0) quantity--;
     });
   }
 
