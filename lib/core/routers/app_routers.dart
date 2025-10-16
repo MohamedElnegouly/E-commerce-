@@ -1,3 +1,4 @@
+import 'package:e_commerce/features/cart/presentation/widgets/cartScreen.dart';
 import 'package:e_commerce/features/category/data/repos/categories_repo.dart';
 import 'package:e_commerce/features/category/presentation/Categories_Screen.dart';
 import 'package:e_commerce/features/category/presentation/manager/cubit/category_screen_cubit.dart';
@@ -49,6 +50,10 @@ class AppRouters {
           final product = state.extra as ProductModel;
           return ProductDetails(product: product);
         },
+      ),
+      GoRoute(
+        path: AppRoutersStrings.cartScreen,
+        builder: (context, state) => const Cartscreen(),
       ),
 
       /// 🧭 ShellRoute → يحتوي على Navigation Bar + Home Cubits

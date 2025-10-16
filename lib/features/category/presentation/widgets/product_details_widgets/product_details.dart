@@ -14,7 +14,7 @@ class ProductDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: productAndcardAppBar(context, 'Product Details'),
+      appBar: productAndcardAppBar(context, 'Product Details' , true),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

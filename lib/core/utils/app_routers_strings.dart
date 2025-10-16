@@ -7,4 +7,5 @@ abstract class AppRoutersStrings {
   static const String favoriteScreen = '/favoriteScreen';
   static const String profile = '/profile';
   static const String productDetails = '/productDetails';
+  static const String cartScreen = '/cartScreen';
 }
