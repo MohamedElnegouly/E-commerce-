@@ -33,7 +33,7 @@ class ProductDetails extends StatelessWidget {
           SizedBox(height: 16),
           Counter(unitPrice: product.price),
           SizedBox(height: 16),
-          AddToCartButton(),
+          AddToCartButton(product:product),
         ],
       ),
     );

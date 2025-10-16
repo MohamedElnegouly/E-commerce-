@@ -1,3 +1,4 @@
+import 'package:e_commerce/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:e_commerce/features/cart/presentation/widgets/cartScreen.dart';
 import 'package:e_commerce/features/category/data/repos/categories_repo.dart';
 import 'package:e_commerce/features/category/presentation/Categories_Screen.dart';
@@ -84,6 +85,7 @@ class AppRouters {
                       ..getProducts(),
               ),
               BlocProvider(create: (context) => FavoriteScreenCubit()),
+              BlocProvider(create: (context) => CartCubit()),
             ],
             child: Scaffold(
               body: child,
