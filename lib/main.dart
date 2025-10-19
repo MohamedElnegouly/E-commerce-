@@ -1,6 +1,8 @@
 import 'package:e_commerce/core/routers/app_routers.dart';
 import 'package:e_commerce/core/utils/service_locator.dart';
+import 'package:e_commerce/features/cart/presentation/manager/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   // ✅ تأكد إن Flutter جاهز لتحميل أي async dependencies
@@ -15,9 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: AppRouters.router,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => CartCubit()),
+
+      ],
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: AppRouters.router,
+      ),
     );
   }
 }

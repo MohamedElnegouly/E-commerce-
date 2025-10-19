@@ -4,10 +4,10 @@ import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 class AddToCartButton extends StatelessWidget {
   final ProductModel product;
-  const AddToCartButton({super.key, required this.product});
+  final int quantity;
+  const AddToCartButton({super.key, required this.product, required this.quantity});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +16,8 @@ class AddToCartButton extends StatelessWidget {
       height: 48,
       child: ElevatedButton.icon(
         onPressed: () {
-           final cartItem = CartModel.fromProduct(product);
-    context.read<CartCubit>().addToCart(cartItem);
+          final cartItem = CartModel.fromProduct(product , quantity);
+          context.read<CartCubit>().addToCart(cartItem);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFF004182),

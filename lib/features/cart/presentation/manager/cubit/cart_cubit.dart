@@ -13,24 +13,26 @@ class CartCubit extends Cubit<CartState> {
   List<CartModel> get cartItems => List.unmodifiable(_cartItems);
 
   /// 🔹 إضافة منتج للكارت
-  void addToCart(CartModel product) {
-    // لو المنتج موجود، نزود الكمية بدل إضافة جديد
-    final index = _cartItems.indexWhere((p) => p.id == product.id);
-    if (index != -1) {
-      _cartItems[index] =
-          _cartItems[index].copyWith(quantity: _cartItems[index].quantity + 1);
-    } else {
-      _cartItems.add(product.copyWith(quantity: 1));
-    }
-    emit(CartUpdated(List.from(_cartItems)));
+void addToCart(CartModel product) {
+  final index = _cartItems.indexWhere((p) => p.id == product.id);
+
+  if (index != -1) {
+    // المنتج موجود: نحدّث الكمية بناءً على القيمة القادمة
+    _cartItems[index] = _cartItems[index].copyWith(
+      quantity: _cartItems[index].quantity + product.quantity,
+    );
+  } else {
+    // منتج جديد: نضيفه كما هو
+    _cartItems.add(product);
   }
+  emit(CartUpdated(List.from(_cartItems)));
+}
 
   /// 🔹 إزالة منتج بالكامل
   void removeFromCart(String productId) {
     _cartItems.removeWhere((p) => p.id == productId);
     emit(CartUpdated(List.from(_cartItems)));
   }
-
   /// 🔹 زيادة الكمية
   void increaseQuantity(String productId) {
     final index = _cartItems.indexWhere((p) => p.id == productId);
@@ -40,7 +42,6 @@ class CartCubit extends Cubit<CartState> {
       emit(CartUpdated(List.from(_cartItems)));
     }
   }
-
   /// 🔹 تقليل الكمية
   void decreaseQuantity(String productId) {
     final index = _cartItems.indexWhere((p) => p.id == productId);
@@ -52,12 +53,11 @@ class CartCubit extends Cubit<CartState> {
     }
     emit(CartUpdated(List.from(_cartItems)));
   }
-
   /// 🔹 حساب الإجمالي
-  double get totalPrice {
-    double total = 0;
+  num get totalPrice {
+    num total = 0;
     for (final product in _cartItems) {
-      total += (product.price ?? 0) * (product.quantity ?? 1);
+      total += (product.price) * (product.quantity);
     }
     return total;
   }

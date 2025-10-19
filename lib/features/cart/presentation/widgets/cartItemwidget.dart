@@ -1,20 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce/core/utils/app_colors.dart';
-import 'package:e_commerce/features/category/presentation/widgets/product_details_widgets/counter.dart';
-import 'package:e_commerce/features/home/data/model/product/ProductModel.dart';
+import 'package:e_commerce/features/cart/data/model/cart_model.dart';
+import 'package:e_commerce/features/cart/presentation/widgets/cartCounter.dart';
 import 'package:flutter/material.dart';
 
 class CartItemWidget extends StatelessWidget {
-  final double price;
-  final int quantity;
+  final num price;
   final VoidCallback onRemove;
-final ProductModel product;
+  final CartModel product;
   const CartItemWidget({
     super.key,
     required this.price,
-    required this.quantity,
     required this.onRemove,
-     required this.product,
+    required this.product,
   });
 
   @override
@@ -35,7 +33,7 @@ final ProductModel product;
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: CachedNetworkImage(
-              imageUrl: product.images![0],
+              imageUrl: product.imageCover!,
               height: size.width * 0.25,
               width: size.width * 0.25,
               fit: BoxFit.cover,
@@ -48,6 +46,7 @@ final ProductModel product;
             ),
           ),
           const SizedBox(width: 10),
+
           /// 📄 تفاصيل المنتج
           Expanded(
             child: Column(
@@ -80,21 +79,7 @@ final ProductModel product;
                 ),
 
                 /// 🎨 اللون + المقاس
-                Row(
-                  children: [
-                    Text(
-                      "EGP ${price.toString()}",
-                      style: TextStyle(
-                        color: AppColors.primary,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: 8),
-                    Counter(unitPrice: price, ),
-                  ],
-                ),
+                Cartcounter(cartItem: product),
               ],
             ),
           ),
