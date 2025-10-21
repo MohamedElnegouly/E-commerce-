@@ -35,7 +35,7 @@ class Cartscreen extends StatelessWidget {
                     return CartItemWidget(
                       price: item.price,
                       onRemove: () {
-                        context.read<CartCubit>().removeFromCart(item.id!);
+                        context.read<CartCubit>().removeFromCart(item.id);
                       },
                       product: item, // أو ابني الـ ProductModel هنا لو محتاج
                     );

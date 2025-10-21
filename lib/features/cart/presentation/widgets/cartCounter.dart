@@ -42,7 +42,7 @@ class _CounterState extends State<Cartcounter> {
   @override
   Widget build(BuildContext context) {
     // نحسب السعر الكلي
-    final totalPrice = widget.cartItem.price! * quantity;
+    final totalPrice = widget.cartItem.price * quantity;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

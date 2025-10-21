@@ -33,7 +33,7 @@ class CartItemWidget extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: CachedNetworkImage(
-              imageUrl: product.imageCover!,
+              imageUrl: product.imageCover,
               height: size.width * 0.25,
               width: size.width * 0.25,
               fit: BoxFit.cover,
@@ -58,7 +58,7 @@ class CartItemWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        product.title!,
+                        product.title,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: AppColors.darkBlue,

@@ -14,7 +14,7 @@ import 'package:e_commerce/core/utils/service_locator.dart';
 import 'package:e_commerce/core/utils/app_routers_strings.dart';
 import 'package:e_commerce/features/splash/screen/splash_screen.dart';
 import 'package:e_commerce/features/login/screen/login_screen.dart';
-import 'package:e_commerce/features/register/screen/register_screen.dart';
+import 'package:e_commerce/features/login/screen/register_screen.dart';
 import 'package:e_commerce/features/home/data/repos/Home_repo.dart';
 import 'package:e_commerce/features/home/presentation/manager/category_cubit/cubit/category_cubit.dart';
 import 'package:e_commerce/features/home/presentation/manager/electronics_cubit/cubit/electronics_product_cubit.dart';
@@ -25,7 +25,7 @@ import 'package:e_commerce/features/home/presentation/widgets/custom_navigation_
 
 class AppRouters {
   static final router = GoRouter(
-    initialLocation: AppRoutersStrings.splash,
+    initialLocation: AppRoutersStrings.register,
     routes: [
       /// 🔹 Splash Screen
       GoRoute(
