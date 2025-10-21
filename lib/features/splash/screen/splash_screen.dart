@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     // بعد 3 ثواني نروح على الصفحة التالية
     Timer(const Duration(seconds: 3), () {
-     context.pushReplacement('/home');
+     context.pushReplacement('/login');
     });
   }
 
