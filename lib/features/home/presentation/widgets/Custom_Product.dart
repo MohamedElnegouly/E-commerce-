@@ -41,7 +41,7 @@ class CustomProduct extends StatelessWidget {
                   child: product.imageCover?.isNotEmpty == true
                       ? CachedNetworkImage(
                           imageUrl: product.imageCover!,
-                          height: size.height * 0.18,
+                          height: size.height * 0.17,
                           width: double.infinity,
                           fit: BoxFit.cover,
                           placeholder: (context, url) => Container(
