@@ -1,3 +1,4 @@
+import 'package:e_commerce/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
@@ -6,14 +7,16 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 10),
       child: Row(
         children: [
-          Image.asset(
-            'assets/images/matgar_logo_home.png',
-            width: 50,
-            height: 50,
-            //color: Color(0xFF004182),
+          Text(
+            'Hi,Mohamed..!',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: AppColors.primary,
+            ),
           ),
         ],
       ),
