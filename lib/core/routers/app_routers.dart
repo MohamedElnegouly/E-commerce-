@@ -25,7 +25,7 @@ import 'package:e_commerce/features/home/presentation/widgets/custom_navigation_
 
 class AppRouters {
   static final router = GoRouter(
-    initialLocation: AppRoutersStrings.register,
+    initialLocation: AppRoutersStrings.splash,
     routes: [
       /// 🔹 Splash Screen
       GoRoute(
