@@ -1,8 +1,8 @@
 import 'package:e_commerce/core/utils/app_colors.dart';
-import 'package:e_commerce/features/login/widgets/Custom_Button.dart';
-import 'package:e_commerce/features/login/widgets/Custom_headline_Text.dart';
-import 'package:e_commerce/features/login/widgets/Custom_text_form_feild.dart';
-import 'package:e_commerce/features/login/widgets/login_text.dart';
+import 'package:e_commerce/features/Authentication/widgets/Custom_Button.dart';
+import 'package:e_commerce/features/Authentication/widgets/Custom_headline_Text.dart';
+import 'package:e_commerce/features/Authentication/widgets/Custom_text_form_feild.dart';
+import 'package:e_commerce/features/Authentication/widgets/login_text.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
