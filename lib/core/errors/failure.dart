@@ -53,9 +53,15 @@ class ServerError extends Failure {
   }
 
   static String _extractErrorMessage(Map<String, dynamic>? response) {
-    // استخدام الوصول الآمن
-    return response?['error']?['message']?.toString() ??
-        response?['message']?.toString() ??
-        'حدث خطأ غير متوقع، حاول لاحقًا.';
+  if (response == null) return 'someThing went wrong please try again';
+  if (response['message'] != null) return response['message'].toString();
+  if (response['error'] is Map && response['error']['message'] != null) {
+    return response['error']['message'].toString();
   }
+  if (response['errors'] is List && response['errors'].isNotEmpty) {
+    return response['errors'][0].toString();
+  }
+  return 'someThing went wrong please try again';
+}
+
 }
