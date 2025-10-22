@@ -1,4 +1,4 @@
-import 'package:e_commerce/features/Authentication/widgets/Custom_headline_Text.dart';
+import 'package:e_commerce/features/Authentication/presentation/screen/widgets/Custom_headline_Text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
