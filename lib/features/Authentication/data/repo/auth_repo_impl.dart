@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commerce/core/errors/failure.dart';
@@ -24,9 +26,11 @@ class AuthRepoImpl implements AuthRepo {
           "name": name,
           "email": email,
           "password": password,
+          "rePassword": password,
           "phone": phone,
         },
       );
+      log("Signup Response: $response");
       return right(AuthModel.fromJson(response));
     } on DioException catch (e) {
       return left(ServerError.fromDioError(e));

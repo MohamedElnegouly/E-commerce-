@@ -3,13 +3,19 @@ class AuthModel {
   final String? token;
   final UserModel? user;
 
-  AuthModel({required this.message, this.token, this.user});
+  AuthModel({
+    required this.message,
+    this.token,
+    this.user,
+  });
 
   factory AuthModel.fromJson(Map<String, dynamic> json) {
     return AuthModel(
-      message: json['message'] ?? '',
+      message: json['message'] ?? json['status'] ?? '', // fallback في حالة "fail"
       token: json['token'],
-      user: json['user'] != null ? UserModel.fromJson(json['user']) : null,
+      user: json['user'] != null
+          ? UserModel.fromJson(json['user'])
+          : null,
     );
   }
 }
@@ -29,7 +35,7 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      id: json['_id'] ?? '',
+      id: json['_id']?.toString() ?? '',
       name: json['name'] ?? '',
       email: json['email'] ?? '',
       phone: json['phone'] ?? '',
