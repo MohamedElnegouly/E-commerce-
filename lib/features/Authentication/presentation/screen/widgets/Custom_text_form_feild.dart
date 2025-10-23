@@ -10,7 +10,7 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final TextInputType? keyboardType;
   final bool? obscureText;
-
+  final TextEditingController controller;
   const CustomTextFormField({
     super.key,
     this.fieldKey,
@@ -20,15 +20,16 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.keyboardType,
     this.obscureText,
-    this.onsaved,
+    this.onsaved, required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       key: fieldKey,
+      controller: controller,
       cursorColor: AppColors.darkBlue,
-      cursorWidth: 2, 
+      cursorWidth: 2,
       cursorHeight: 22,
       onChanged: onChanged,
       onSaved: onsaved,
