@@ -30,7 +30,6 @@ class AuthRepoImpl implements AuthRepo {
           "phone": phone,
         },
       );
-      log("Signup Response: $response");
       return right(AuthModel.fromJson(response));
     } on DioException catch (e) {
       return left(ServerError.fromDioError(e));
