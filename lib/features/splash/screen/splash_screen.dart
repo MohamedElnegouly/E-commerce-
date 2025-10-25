@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:e_commerce/core/utils/app_colors.dart';
+import 'package:e_commerce/features/Authentication/data/model/auth_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -18,18 +21,33 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    _animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
 
-    _fadeAnimation =
-        CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
+    _fadeAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeIn,
+    );
 
     _animationController.forward();
 
-    // بعد 3 ثواني نروح على الصفحة التالية
-    Timer(const Duration(seconds: 3), () {
-     context.pushReplacement('/login');
-    });
+    _navigate();
+  }
+
+  Future<void> _navigate() async {
+    await Future.delayed(const Duration(seconds: 3));
+    final userBox = Hive.box<AuthModel>('userBox');
+    final user = userBox.get('user');
+
+    if (user != null && user.token != null) {
+      // if user logged before --> go to Home
+      if (mounted) context.go('/home');
+    } else {
+      // else go to Login
+      if (mounted) context.go('/login');
+    }
   }
 
   @override
