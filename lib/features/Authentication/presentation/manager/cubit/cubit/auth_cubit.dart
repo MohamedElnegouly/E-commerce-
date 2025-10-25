@@ -3,6 +3,8 @@ import 'package:dartz/dartz.dart';
 import 'package:e_commerce/core/errors/failure.dart';
 import 'package:e_commerce/features/Authentication/data/model/auth_model.dart';
 import 'package:e_commerce/features/Authentication/data/repo/auth_repo.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 part 'auth_state.dart';
 
@@ -58,14 +60,29 @@ class AuthCubit extends Cubit<AuthState> {
       },
     );
   }
-  AuthModel? getSavedUser() {
-    final box = Hive.box<AuthModel>('userBox');
-    return box.get('user');
-  }
-
-  // ✅ دالة جديدة: تسجيل الخروج (مسح البيانات)
-  Future<void> logout() async {
+   
+   Future<void> clearUserData() async {
     final box = Hive.box<AuthModel>('userBox');
     await box.clear();
+  }
+
+ Future<void> logout(BuildContext context) async {
+    emit(AuthLoading());
+    await clearUserData();
+    emit(AuthLogout());
+    if (context.mounted) context.go('/login');
+  }
+
+ Future<void> deleteAccount(BuildContext context) async {
+    emit(AuthLoading());
+    try {
+      // Api call to delete account from server here
+      await clearUserData();
+      emit(AuthAccountDeleted());
+      //make sure the context is still mounted before navigating
+      if (context.mounted) context.go('/login');
+    } catch (e) {
+      emit(AuthFailure("Failed to delete account: ${e.toString()}"));
+    }
   }
 }
