@@ -56,8 +56,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
           if (Navigator.canPop(context)) Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
+               shape: BeveledRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              backgroundColor: AppColors.darkBlue,
               content: Text("Account created successfully! , please Login"),
-              duration: Duration(seconds: 1),
+              duration: Duration(seconds: 2),
             ),
           );
           context.go(AppRoutersStrings.login);

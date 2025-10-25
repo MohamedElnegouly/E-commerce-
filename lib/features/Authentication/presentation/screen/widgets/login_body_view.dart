@@ -14,6 +14,7 @@ class LoginBodyView extends StatefulWidget {
   @override
   State<LoginBodyView> createState() => _LoginBodyViewState();
 }
+
 class _LoginBodyViewState extends State<LoginBodyView> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
@@ -27,7 +28,7 @@ class _LoginBodyViewState extends State<LoginBodyView> {
     passwordController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
@@ -44,17 +45,21 @@ class _LoginBodyViewState extends State<LoginBodyView> {
           if (Navigator.canPop(context)) {
             Navigator.pop(context); // ⬅️ يقفل اللودر لو مفتوح
           }
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errorMessage)));
         } else if (state is AuthSuccess) {
           if (Navigator.canPop(context)) {
             Navigator.pop(context); // ⬅️ يقفل اللودر
           }
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
+            SnackBar(
+              shape: BeveledRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.zero),
+              ),
+              backgroundColor: AppColors.darkBlue,
               content: Text("Login Successful!"),
-              duration: Duration(seconds: 1),
+              duration: Duration(seconds: 2),
             ),
           );
           context.go(AppRoutersStrings.home);
@@ -139,9 +144,9 @@ class _LoginBodyViewState extends State<LoginBodyView> {
                       if (formKey.currentState!.validate()) {
                         FocusScope.of(context).unfocus(); // ⬅️ يقفل الكيبورد
                         context.read<AuthCubit>().signin(
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim(),
-                            );
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        );
                       } else {
                         setState(() {
                           autovalidateMode = AutovalidateMode.always;
